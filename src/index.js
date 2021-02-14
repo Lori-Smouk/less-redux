@@ -5,13 +5,13 @@ import {Provider} from "react-redux";
 import {createStore} from "redux";
 
 const reducer = (state = 0, action) => {
-    if (action.type === "plus"){
-        return state + 1;
+    switch (action.type){
+        case "minus": return state - 1;
+        case "plus": return state + 1;
+        case "add": return action.number + state;
+        case "reset": return 0;
+        default: return state;
     }
-    if (action.type === "minus" && state > 0){
-        return state - 1;
-    }
-    return state;
 };
 const store = createStore(reducer);
 

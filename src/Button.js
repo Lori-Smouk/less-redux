@@ -1,27 +1,45 @@
 import React from 'react';
 import {useDispatch} from "react-redux";
+import {add, minus, plus, reset} from "./Func";
+import {useState} from "react";
 
 function Button(props) {
     const dispatch = useDispatch();
+    const [change, setChange] = useState("")
 
-    const handleClick = () => {
-        dispatch({
-            type: "plus"
-        })
+    const handlePlus = () => {
+        dispatch(plus())
     }
-    const handleClick2 = () => {
-        dispatch({
-            type: "minus"
-        })
+    const handleReset = () => {
+        dispatch(reset())
+    }
+    const handleMinus = () => {
+        dispatch(minus())
+    }
+    const handleChange = (e) => {
+        setChange(e.target.value)
+    }
+    const handleAdd = () => {
+        dispatch(add(Number(change)))
+        setChange('')
     }
     return (
         <div>
-            <button onClick={handleClick}>
+            <button onClick={handlePlus}>
                 Plus
             </button>
-            <button onClick={handleClick2}>
+            <button onClick={handleMinus}>
                 Minus
             </button>
+            <button onClick={handleReset}>
+                Reset
+            </button>
+            <div>
+                <input type="number" value={change} onChange={handleChange}/>
+                <button onClick={handleAdd}>
+                    Добавить
+                </button>
+            </div>
         </div>
     );
 }
